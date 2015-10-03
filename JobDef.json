@@ -6,7 +6,7 @@
     "Hamiltonian": "dcase",
 
     // Periodic boundary conditions: 1 (on) or 0 (off)
-    "PBC": 1,
+    "PBC": 0,
 
     // Save results in following directory. This is optional. If this is not
     // included the results will be saved in the current directory.
@@ -30,12 +30,12 @@
     "uc_file": "UnitCell.csv",
 
     // magnetic field
-    "so_eB": [0.0, 0.01, 0.0],
+    "so_eB": [0.0, 0.0, 0.1],
     // spin orbit. 1 (on) or 0 (off).
     "spin_orbit":0,
 
     // electronic temperature in eV
-    "el_kT": 0.001,
+    "el_kT": 0.005,
     // the tolerance in finding the chemical potential
     "mu_tol": 1e-13,
     // max number of bisections when finding mu
@@ -43,23 +43,39 @@
 
     // self-consistent field parameters
     "scf_on": 1,
-    "scf_mix": 0.001,
+    "scf_mix": 0.0001,
     "scf_tol": 1.0e-8,
-    "scf_max_loops": 10000,
+    "scf_max_loops": 50000,
     // Pulay mixing A
     "A": 0.1,
+    // Optimisation routines:
+    // 1: the default that we implemented
+    // 2: the DIIS, pretty much equivalent results to 1
+    // 3: A slow but robust routine. It is more physical than routines 1 and 2
+    // in that it requires the coefficients of the linear combination of
+    // density matrices lie between 0 and 1.
+    "optimisation_routine":3,
+    // Random seeds may be used for routine 3. When this is on, (1), although
+    // less scf loops are required it tends to take longer to run. It could be
+    // parallelised without much difficulty but I haven't done that yet.
+    "random_seeds":0,
+    "num_random_seeds":10,
     // Number of density matrices to mix. Reduces to linear mixing when num_rho = 1. Note that 5 seems to be the optimal value.
     "num_rho":5,
+    // McWeeny transformation: enforce idempotency in the density matrix, 1 (on), 0 (off).
+    "McWeeny":0,
+    "McWeeny_tol":1.0e-8,
+    "McWeeny_max_loops":100,
     // Print density matrix in "i    j    val" format, with j >= i to file, 1 is
     // on, 0 is off. Will be called "rho.txt".
-    "print_rho":1,
+    "print_rho":0,
     // Print density matrix as a matrix (not recommended for large systems).
     "print_rho_mat":0,
     // Print the on-site density matrices
     "print_rho_on_site":1,
     // Print fock matrix in "i    j    val" format, with j >= i to file, 1 is
     // on, 0 is off. Will be called "fock.txt".
-    "print_fock":1,
+    "print_fock":0,
     // Print fock matrix as a matrix (not recommended for large systems).
     "print_fock_mat":0,
 
